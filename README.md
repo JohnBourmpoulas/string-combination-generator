@@ -4,7 +4,7 @@ A Java application for systematically generating string combinations around a us
 
 The generator preserves the base string as a contiguous block and enumerates all possible values for the remaining character positions using a configurable character set.
 
-The project is designed to demonstrate combinatorial generation, exhaustive search-space traversal, efficient file streaming, and the exponential growth of possible combinations as the target length increases.
+The project demonstrates combinatorial generation, exhaustive search-space traversal, efficient file streaming, and the exponential growth of possible combinations as the target length increases.
 
 The application is implemented in plain Java and requires no external libraries or build tools.
 
@@ -93,29 +93,6 @@ The process is deterministic: every position is traversed systematically rather 
 
 ---
 
-## Demo
-
-The application runs directly from a terminal and displays information about the requested generation process.
-
-![String Combination Generator running in the terminal](assets/terminal-demo.png)
-
-The terminal output provides information such as:
-
-```text
-STRING COMBINATION GENERATOR
-====================================
-Enter base string: test
-Enter total length: 7
-
-Base length: 4
-Free positions: 3
-Alphabet size: 67
-Contiguous placements: 4
-Combinations to generate: ...
-```
-
----
-
 ## Character Set
 
 By default, the generator uses the following character set:
@@ -135,13 +112,13 @@ This provides:
 
 for every generated position.
 
-The character set is configurable in the Java source code and can be modified for different experiments or generation requirements.
+The character set can be modified in the Java source code for different generation requirements or experiments.
 
 ---
 
 ## Search-Space Calculation
 
-The number of possible generated strings grows exponentially as the number of free positions increases.
+The number of generated strings grows exponentially as the number of free positions increases.
 
 For a character set containing `A` characters and `N` free positions, each fixed placement of the base string produces:
 
@@ -151,7 +128,7 @@ A^N
 
 possible combinations.
 
-If the base string can occupy `P` contiguous positions within the target string, the generation space before accounting for any possible duplicate outputs is:
+If the base string can occupy `P` contiguous positions within the target string, the generation space before accounting for possible duplicate outputs is:
 
 ```text
 P × A^N
@@ -175,9 +152,9 @@ The theoretical generation count is:
 6 × 67^5
 ```
 
-which produces billions of generated entries.
+which results in billions of generated entries.
 
-This illustrates how quickly a combinatorial search space grows when only a few additional positions are introduced.
+This demonstrates how quickly a combinatorial search space grows when only a few additional positions are introduced.
 
 ---
 
@@ -185,11 +162,7 @@ This illustrates how quickly a combinatorial search space grows when only a few 
 
 Generated strings are written to a text file inside the `output` directory.
 
-A small example of generated output is shown below:
-
-![Example generated combinations](assets/output-example.png)
-
-The application writes generated strings directly to disk rather than storing the complete result set in memory.
+The application writes each generated string directly to disk rather than storing the complete result set in memory.
 
 This design makes it possible to process much larger generation spaces without requiring enough RAM to hold every generated string simultaneously.
 
@@ -205,11 +178,11 @@ Instead, this project follows a streaming approach:
 
 ```text
 Generate combination
-        │
-        ▼
+        |
+        v
 Write combination to file
-        │
-        ▼
+        |
+        v
 Generate next combination
 ```
 
@@ -270,17 +243,13 @@ These tools make it possible to inspect very large generated datasets without lo
 
 ```text
 string-combination-generator/
-│
+|
 ├── src/
 │   └── Main.java
-│
+|
 ├── output/
 │   └── .gitkeep
-│
-├── assets/
-│   ├── terminal-demo.png
-│   └── output-example.png
-│
+|
 ├── .gitignore
 ├── LICENSE
 └── README.md
@@ -288,7 +257,7 @@ string-combination-generator/
 
 Generated `.txt` files should remain outside version control because they can become extremely large.
 
-The repository's `.gitignore` should therefore exclude generated output while keeping the directory structure available.
+The repository's `.gitignore` should therefore exclude generated output while preserving the directory structure.
 
 ---
 
@@ -396,7 +365,7 @@ The project can be used as a practical example of several programming and comput
 
 ## Cybersecurity and Search-Space Concepts
 
-Combinatorial generation is also directly relevant to cybersecurity education.
+Combinatorial generation is also relevant to cybersecurity education.
 
 Password-search techniques can be understood as search-space problems. When every character of a string is unknown, the number of possibilities depends on both the character-set size and the total number of unknown positions.
 
@@ -428,11 +397,11 @@ Adding a single free position multiplies the search space by the size of the con
 With the default 67-character alphabet:
 
 ```text
-1 free position  → 67 possibilities per placement
-2 free positions → 4,489 possibilities per placement
-3 free positions → 300,763 possibilities per placement
-4 free positions → 20,151,121 possibilities per placement
-5 free positions → 1,350,125,107 possibilities per placement
+1 free position  -> 67 possibilities per placement
+2 free positions -> 4,489 possibilities per placement
+3 free positions -> 300,763 possibilities per placement
+4 free positions -> 20,151,121 possibilities per placement
+5 free positions -> 1,350,125,107 possibilities per placement
 ```
 
 The number of possible placements of the base string must then also be considered.
@@ -445,23 +414,22 @@ This limitation is an inherent property of exhaustive combinatorial generation r
 
 ## Important Note About Generated Files
 
-Do not commit large generated output files to the repository.
+Large generated output files should not be committed to the repository.
 
 A generation involving billions of strings can produce files tens of gigabytes in size.
 
-The GitHub repository should contain:
+The GitHub repository should primarily contain:
 
 ```text
 Source code
 Documentation
-Screenshots
 Configuration
 License
 ```
 
-rather than the complete generated datasets.
+rather than complete generated datasets.
 
-Small example outputs may be included for demonstration purposes if required.
+Small example output files may be included when needed for demonstration or testing.
 
 ---
 
